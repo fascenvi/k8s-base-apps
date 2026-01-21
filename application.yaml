@@ -18,3 +18,25 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server-2
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/fascenvi/k8s-base-apps.git'
+    targetRevision: HEAD
+    path: metrics-server
+  destination:
+    server: 'https://10.0.0.20:6443'
+    namespace: metrics-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
