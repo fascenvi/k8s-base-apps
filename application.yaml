@@ -1,0 +1,20 @@
+apiVersion: argocd.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/fascenvi/k8s-base-apps.git'
+    targetRevision: HEAD
+    path: metrics-server
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: metrics-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
